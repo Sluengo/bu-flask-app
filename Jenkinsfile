@@ -27,10 +27,5 @@ pipeline {
                 echo "Image built and pushed to repository"
             }
         }
-        stage('Deploy') {
-            steps {
-
-            }
-        }
     }
 }
