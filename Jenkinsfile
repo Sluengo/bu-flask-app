@@ -16,6 +16,9 @@ pipeline {
         }
         stage('Build') {
             steps {
+
+                // Authenticate to ECR
+                sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 023812455170.dkr.ecr.us-east-1.amazonaws.com'
                 //  Building new image
                 sh 'docker image build -t $ECR_REPO:latest .'
                 sh 'docker image tag $ECR_REPO:latest $ECR_REPO:$BUILD_NUMBER'
