@@ -30,5 +30,12 @@ pipeline {
                 echo "Image built and pushed to repository"
             }
         }
+
+        stage('Deploy') {
+            steps {
+
+                sh 'kubectl apply -f deployment.yaml'
+            }
+        }
     }
 }
