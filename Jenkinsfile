@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        ECR_REPO = "023812455170.dkr.ecr.us-east-1.amazonaws.com/flask-apps"
+        ECR_REPO = "328500298794.dkr.ecr.us-east-1.amazonaws.com/flask-apps"
         CONTAINER_NAME = "flask-container"
         STUB_VALUE = "200"
     }
@@ -18,14 +18,14 @@ pipeline {
             steps {
 
                 // Authenticate to ECR
-                sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 023812455170.dkr.ecr.us-east-1.amazonaws.com'
+                sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_REPO'
                 //  Building new image
                 sh 'docker image build -t $ECR_REPO:latest .'
                 sh 'docker image tag $ECR_REPO:latest $ECR_REPO:$BUILD_NUMBER'
 
                 //  Pushing Image to Repository
-                sh 'docker push 023812455170.dkr.ecr.us-east-1.amazonaws.com/flask-apps:$BUILD_NUMBER'
-                sh 'docker push 023812455170.dkr.ecr.us-east-1.amazonaws.com/flask-apps:latest'
+                sh 'docker push $ECR_REPO:$BUILD_NUMBER'
+                sh 'docker push $ECR_REPO:latest'
 
                 echo "Image built and pushed to repository"
             }
