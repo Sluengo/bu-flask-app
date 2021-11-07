@@ -16,19 +16,16 @@ pipeline {
         }
         stage('Build') {
             steps {
-                // Test
+
                 // Authenticate to ECR
                 sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_REPO'
                 //  Building new image
                 sh 'docker image build -t $ECR_REPO:latest .'
-                
                 sh 'docker image tag $ECR_REPO:latest $ECR_REPO:$BUILD_NUMBER'
-                // sh 'LATEST_ID=$(docker images | awk '{print $3}' | awk 'NR==2')'
-                //sh 'docker image tag $LATEST_ID $ECR_REPO'
 
                 //  Pushing Image to Repository
                 sh 'docker push $ECR_REPO:$BUILD_NUMBER'
-                //sh 'docker push $ECR_REPO:latest'
+                sh 'docker push $ECR_REPO:latest'
 
                 echo "Image built and pushed to repository"
             }
