@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        ECR_REPO = "328500298794.dkr.ecr.us-east-1.amazonaws.com/flask-apps"
+        ECR_REPO = "523805441269.dkr.ecr.us-east-1.amazonaws.com/flask-apps"
         CONTAINER_NAME = "flask-container"
         STUB_VALUE = "200"
     }
