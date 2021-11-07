@@ -34,7 +34,8 @@ pipeline {
         stage('Deploy') {
             steps {
 
-                sh 'kubectl apply -f /opt/kube-config/deployment.yaml'
+                // sh 'kubectl apply -f /opt/kube-config/deployment.yaml'
+                sh 'kubectl rollout restart deployment/server-demo'
             }
         }
     }
