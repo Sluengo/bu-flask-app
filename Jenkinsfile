@@ -23,7 +23,7 @@ pipeline {
                 sh 'docker image build -t $ECR_REPO:latest .'
                 // sh 'docker image tag $ECR_REPO:latest $ECR_REPO:$BUILD_NUMBER'
 
-                sh 'LATEST_ID=$(docker images | awk '{print $3}' | awk 'NR==2')'
+                sh "LATEST_ID=$(docker images | awk '{print $3}' | awk 'NR==2')"
                 
                 sh 'docker image tag $LATEST_ID $ECR_REPO'
 
